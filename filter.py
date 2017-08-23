@@ -11,15 +11,23 @@ args = parser.parse_args()
 outputFile = open('filtered-' + args.inFile, 'w')
 outputWriter = csv.writer(outputFile)
 
+filteredCells, highlightedCells = 0, 0
+
+
 with open(args.inFile, 'r') as csv_file:
      for row in csv.reader(csv_file):
           newRow = []
           for col in row:
-              if all(x not in col for x in args.filter):
-                   if args.highlight and any(y in col for y in args.highlight):
-                        newRow.append(col.upper())
-                   else:
-                        newRow.append(col)
+               if all(x not in col for x in args.filter):
+                    if args.highlight and any(y in col for y in args.highlight):
+                         newRow.append(col.upper())
+                         highlightedCells += 1
+                    else:
+                         newRow.append(col)
+               else:
+                    filteredCells += 1 
           outputWriter.writerow(newRow)
+
+print 'Filtered out {} cells!\nHighlighted {} cells!'.format(filteredCells, highlightedCells)
 
     
