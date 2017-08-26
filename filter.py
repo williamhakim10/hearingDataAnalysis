@@ -13,7 +13,6 @@ outputWriter = csv.writer(outputFile)
 
 filteredCells, highlightedCells = 0, 0
 
-
 with open(args.inFile, 'r') as csv_file:
      for row in csv.reader(csv_file):
           newRow = []
@@ -28,6 +27,7 @@ with open(args.inFile, 'r') as csv_file:
                     filteredCells += 1 
           outputWriter.writerow(newRow)
 
+outputFile.close()
 print 'Filtered out {} cells!\nHighlighted {} cells!'.format(filteredCells, highlightedCells)
 
     
